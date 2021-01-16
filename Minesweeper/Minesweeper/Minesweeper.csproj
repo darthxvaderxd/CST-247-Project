@@ -112,8 +112,18 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Registration\Register.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\Login.cshtml">
+      <BrowseToURL>~/Login</BrowseToURL>
+    </Content>
+    <Content Include="Views\Registration\Registration.cshtml">
+      <BrowseToURL>~/Registration</BrowseToURL>
+    </Content>
+    <Content Include="Views\Login\LoginError.cshtml" />
+    <Content Include="Views\Login\LoginSuccess.cshtml" />
+    <Content Include="Views\Registration\RegistrationSuccess.cshtml">
+      <BrowseToURL>~/Registration/RegistrationSuccess</BrowseToURL>
+    </Content>
+    <Content Include="Views\Registration\RegistrationError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

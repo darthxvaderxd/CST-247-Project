@@ -18,7 +18,7 @@ namespace Minesweeper.Controllers
         {
             UserModel user = new UserModel();
 
-            return View(user);
+            return View("Registration", user);
         }
 
         // Action method for registering 
@@ -29,7 +29,7 @@ namespace Minesweeper.Controllers
             // Validate UserModel data
             if (!ModelState.IsValid)
             {
-                return View(user);
+                return View("RegistrationError", user);
             }
 
             // Service for registering users
@@ -41,11 +41,11 @@ namespace Minesweeper.Controllers
             // Place holder Logic for routing dependent upon registration results
             if (userRegistered)
             {
-                return View();
+                return View("RegistrationSuccess", user);
             } 
             else
             {
-                return View();
+                return View("RegistrationError", user);
             }
 
         }

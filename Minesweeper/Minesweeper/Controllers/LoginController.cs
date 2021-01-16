@@ -18,7 +18,7 @@ namespace Minesweeper.Controllers
         {
             LoginModel user = new LoginModel();
 
-            return View(user);
+            return View("Login", user);
         }
 
         // Action method for verifying a username and password
@@ -32,7 +32,7 @@ namespace Minesweeper.Controllers
             // Data verification for user model
             if (!ModelState.IsValid)
             {
-                return View(user);
+                return View("Login", user);
             }
 
             // Insert User into database. Returns true for success false for fail.
@@ -41,11 +41,11 @@ namespace Minesweeper.Controllers
             // Placer holder Logic for routing dependent upon query results
             if (userValid)
             {
-                return View();
+                return View("LoginSuccess", user);
             }
             else
             {
-                return View();
+                return View("LoginError", user);
             }
 
         }

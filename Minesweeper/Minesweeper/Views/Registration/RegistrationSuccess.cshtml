@@ -1,0 +1,14 @@
+﻿@model Minesweeper.Models.UserModel
+
+@{
+    ViewBag.Title = "Registration";
+}
+
+<div class="form-horizontal">
+    <div class="form-title">Account creation successful</div>
+
+    <p>
+        @Html.DisplayTextFor((model) => model.FirstName)
+        Your account has successfully been created. Please <a href="/Login">Login</a>
+    </p>
+</div>

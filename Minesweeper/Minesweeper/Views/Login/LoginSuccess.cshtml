@@ -1,0 +1,22 @@
+﻿@model Minesweeper.Models.LoginModel
+
+@{
+    ViewBag.Title = "LoginSuccess";
+}
+
+<h2>LoginSuccess</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div class="form-title">
+            Welcome! @Html.DisplayTextFor(model => model.Username)
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
