@@ -10,9 +10,6 @@ namespace Minesweeper.Services.Data
     // Class for handling UserModel CRUD actions with SQL Server via DAO
     public class UserDAO
     {
-        // Connection string for local SQL Database
-        string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Minesweeper;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         // Add new user to database. 
         public bool AddUser(UserModel user)
         {
@@ -23,7 +20,7 @@ namespace Minesweeper.Services.Data
             string queryString = "INSERT INTO users VALUES(@FirstName, @LastName, @Age, @Sex, @State, @EmailAddress, @Username, @Password)";
 
             // Set connection with connection string
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(GlobalVAR.CONNECTIONSTRING))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
 

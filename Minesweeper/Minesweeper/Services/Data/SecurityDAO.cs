@@ -9,9 +9,6 @@ namespace Minesweeper.Services.Data
 {
     public class SecurityDAO
     {
-        // Connection string for SQL Database
-        string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Minesweeper;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         // Check for user. Return true for success, false for failure.
         public bool FindByUser(LoginModel user)
         {
@@ -22,7 +19,7 @@ namespace Minesweeper.Services.Data
             string queryString = "SELECT * FROM dbo.users WHERE username = @Username AND password = @Password";
 
             // Set connection with connection string
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(GlobalVAR.CONNECTIONSTRING))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
 

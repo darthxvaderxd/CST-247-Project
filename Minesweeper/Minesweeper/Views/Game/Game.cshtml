@@ -1,0 +1,97 @@
+﻿@model Minesweeper.Services.Game.GameService
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Game</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).contextmenu(function () {
+                return false;
+            });
+
+            $('.game-button').mousedown(function (event) {
+                if (event.which == 3)
+                {
+                    $.post("@Url.Action("OnRightMouseClick", "Game")", { mine: this.getAttribute("value") }, function (data) {                      
+                        $("body").html(data);
+                });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        @if (Model.gameOver && Model.isWinner)
+        {
+            <h1>Game Over! You win!</h1>
+        }
+        else if (Model.gameOver)
+        {
+            <h1>Game Over! You Lose!</h1>
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm("OnLeftMouseClick", "Game", FormMethod.Post))
+        {
+            <table class="game-board">
+                @for (int row = 0; row < 10; row++)
+                {
+                    <tr>
+                        @for (int col = 0; col < 10; col++)
+                        {
+                            <td class="game-board">
+                                @if (Model.gameBoard.Grid[row, col].Visited && !Model.gameBoard.Grid[row, col].Live)
+                                {
+                                    if (@Model.gameBoard.Grid[row, col].LiveNeighbors > 0)
+                                    {
+                                        @Model.gameBoard.Grid[row, col].LiveNeighbors
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+                                else
+                                {
+                                    <button class="game-button" type="submit" name="mine" value=@row|@col>
+                                        @if (Model.gameBoard.Grid[row, col].Live && Model.gameOver)
+                                        {
+                                            <img src="~/Images/Bomb.png" />
+                                        }
+                                        else if (Model.gameBoard.Grid[row, col].IsFlagged)
+                                        {
+                                            <img src="~/Images/Flag.png" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Images/Tile.png" />
+                                        }
+                                    </button>
+                                }
+                            </td>
+                        }
+                    </tr>
+
+                }
+            </table>
+        }
+        @using (Html.BeginForm("ResetGame", "Game"))
+        {
+            <button type="submit">
+                Restart
+            </button>
+        }
+    </div>
+</body>
+</html>

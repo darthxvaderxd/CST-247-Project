@@ -13,6 +13,11 @@ namespace Minesweeper
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(
+                name: "Game",
+                url: "Game/",
+                defaults: new { controller = "Game", action = "Game", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Login",
