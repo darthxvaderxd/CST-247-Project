@@ -53,7 +53,15 @@ textarea {
     border-collapse: collapse;
 }
 
-button {
+img {
+    display: block;
+}
+
+.game-board {
+    margin: auto;
+}
+
+.game-button {
     border: 0;
     padding: 0;
     margin: 0;
@@ -61,22 +69,23 @@ button {
     height: 50px;
 }
 
-tr {
-    background-color: lightgrey;
-    height: 55px;
-    padding: 0;
-}
-
-td {
+.game-board-cell {
+    margin: auto;
     text-align: center;
     width: 55px;
     padding: 0;
 }
 
-img {
-    display: block;
+.game-board-row {
+    background-color: lightgrey;
+    height: 55px;
+    padding: 0;
 }
 
-.game-board {
+.game-title, .game-menu {
+    text-align: center;
+}
 
+.game-menu {
+    margin-top: 1.6rem;
 }
