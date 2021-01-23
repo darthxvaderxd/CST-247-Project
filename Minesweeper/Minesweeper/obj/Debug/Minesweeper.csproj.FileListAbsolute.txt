@@ -70,3 +70,5 @@ F:\school_code\CST-247-Project\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csp
 F:\school_code\CST-247-Project\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.CopyComplete
 F:\school_code\CST-247-Project\Minesweeper\Minesweeper\obj\Debug\Minesweeper.dll
 F:\school_code\CST-247-Project\Minesweeper\Minesweeper\obj\Debug\Minesweeper.pdb
+F:\school_code\CST-247-Project\Minesweeper\Minesweeper\bin\MineSweeperClassLibrary.dll
+F:\school_code\CST-247-Project\Minesweeper\Minesweeper\bin\MineSweeperClassLibrary.pdb

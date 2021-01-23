@@ -39,6 +39,9 @@
         else if (Model.gameOver)
         {
             <h1>Game Over! You Lose!</h1>
+        } else
+        {
+            <h1>Game Running</h1>
         }
     </div>
     <div>
@@ -50,21 +53,23 @@
                     <tr>
                         @for (int col = 0; col < 10; col++)
                         {
-                            <td class="game-board">
-                                @if (Model.gameBoard.Grid[row, col].Visited && !Model.gameBoard.Grid[row, col].Live)
+                        <td class="game-board">
+                            @if (Model.gameBoard.Grid[row, col].Visited && !Model.gameBoard.Grid[row, col].Live)
+                            {
+                                if (@Model.gameBoard.Grid[row, col].LiveNeighbors > 0)
                                 {
-                                    if (@Model.gameBoard.Grid[row, col].LiveNeighbors > 0)
-                                    {
-                                        @Model.gameBoard.Grid[row, col].LiveNeighbors
-                                    }
-                                    else
-                                    {
-
-                                    }
+                                    @Model.gameBoard.Grid[row, col].LiveNeighbors
                                 }
                                 else
                                 {
-                                    <button class="game-button" type="submit" name="mine" value=@row|@col>
+
+                                }
+                            }
+                            else
+                            {
+                                {
+                                    string val = row + "|" + col;
+                                    <button class="game-button" type="submit" name="mine" value=@val>
                                         @if (Model.gameBoard.Grid[row, col].Live && Model.gameOver)
                                         {
                                             <img src="~/Images/Bomb.png" />
@@ -79,7 +84,8 @@
                                         }
                                     </button>
                                 }
-                            </td>
+                            }
+                        </td>
                         }
                     </tr>
 
