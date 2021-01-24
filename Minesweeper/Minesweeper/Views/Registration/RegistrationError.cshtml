@@ -3,7 +3,8 @@
 @model UserModel
 
 @{
-    ViewBag.Title = "Registration";
+    ViewBag.Title = "Minsweeper - Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Registration</h2>
@@ -126,7 +127,3 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

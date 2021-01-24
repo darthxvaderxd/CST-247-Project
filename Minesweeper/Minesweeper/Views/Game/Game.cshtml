@@ -1,7 +1,8 @@
 ﻿@model Minesweeper.Services.Game.GameService
 
 @{
-    Layout = null;
+    ViewBag.Title = "Minsweeper - Game";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -22,7 +23,7 @@
             $('.game-button').mousedown(function (event) {
                 if (event.which == 3)
                 {
-                    $.post("@Url.Action("OnRightMouseClick", "Game")", { mine: this.getAttribute("value") }, function (data) {                      
+                    $.post("@Url.Action("OnRightMouseClick", "Game")", { mine: this.getAttribute("value") }, function (data) {
                         $("body").html(data);
                 });
                 }

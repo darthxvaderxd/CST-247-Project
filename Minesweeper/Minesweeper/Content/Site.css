@@ -7,7 +7,8 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    border: 1px solid #222 !important;
+    max-width: 280px; 
 }
 
 .form-horizontal {
@@ -88,4 +89,39 @@ img {
 
 .game-menu {
     margin-top: 1.6rem;
+}
+
+.menu {
+    padding: 0.4rem; 0.8rem;
+    background-color: #222222 !important;
+    width: 100%;
+}
+
+.menu-item {
+    font-family: 'Arial Black', Arial;
+    padding: 0.8rem;
+}
+
+.menu-item a {
+    color: #ff6a00;
+}
+
+.menu-item a:hover {
+    color: #ffffff;
+}
+
+.clear {
+    float: none;
+}
+
+.footer {
+    background-color: #222222;
+    bottom: 0;
+    color: #ff6a00;
+    font-family: 'Arial Black', Arial;
+    left: 0;
+    padding: 0.4rem;
+    position: fixed;
+    right: 0;
+    text-align: center;
 }

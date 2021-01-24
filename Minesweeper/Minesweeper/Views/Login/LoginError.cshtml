@@ -1,7 +1,8 @@
 ﻿@model Minesweeper.Models.LoginModel
 
 @{
-    ViewBag.Title = "LoginError";
+    ViewBag.Title = "Minsweeper - Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>LoginError</h2>
@@ -11,48 +12,44 @@
     @Html.AntiForgeryToken()
 
 
-<div class="text-danger">
-    Your username and password were incorrect. Please try again.
-</div>
-
-<div class="validator">
-    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-</div>
-<div class="form-horizontal">
-    <div class="form-title">Please login</div>
-
-    <div class="form-group">
-        <div class="form-label">
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-        </div>
-        <div class="form-data">
-            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-        <div class="validator">
-            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-        </div>
+    <div class="text-danger">
+        Your username and password were incorrect. Please try again.
     </div>
 
-    <div class="form-group">
-        <div class="form-label">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        </div>
-        <div class="form-data">
-            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-        <div class="validator">
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
+    <div class="validator">
+        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
     </div>
+    <div class="form-horizontal">
+        <div class="form-title">Please login</div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Login" class="btn btn-default" />
+        <div class="form-group">
+            <div class="form-label">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+            <div class="form-data">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="validator">
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+            <div class="form-data">
+                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="validator">
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Login" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
