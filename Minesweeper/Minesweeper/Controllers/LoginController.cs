@@ -18,6 +18,12 @@ namespace Minesweeper.Controllers
         {
             LoginModel user = new LoginModel();
 
+            if (Session["login"] != null)
+            {
+                user.Username = Session["login"].ToString();
+                return View("LoginSuccess", user);
+            }
+
             return View("Login", user);
         }
 
@@ -41,6 +47,7 @@ namespace Minesweeper.Controllers
             // Placer holder Logic for routing dependent upon query results
             if (userValid)
             {
+                Session["login"] = user.Username;
                 return View("LoginSuccess", user);
             }
             else

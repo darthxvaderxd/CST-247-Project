@@ -16,6 +16,11 @@ namespace Minesweeper.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            if (Session["login"] == null)
+            {
+                return RedirectToRoute("Login");
+            }
+
             UserModel user = new UserModel();
 
             return View("Registration", user);

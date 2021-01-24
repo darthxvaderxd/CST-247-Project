@@ -14,6 +14,11 @@ namespace Minesweeper.Controllers
         // GET: Game
         public ActionResult Game()
         {
+            if (Session["login"] == null)
+            {
+                return RedirectToRoute("Login");
+            }
+
             gameService.StartGame();
 
             return View("Game", gameService);

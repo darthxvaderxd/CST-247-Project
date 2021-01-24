@@ -1,11 +1,17 @@
 ﻿<div class="menu clear">
-    <span class="menu-item">
-        @Html.ActionLink("Play!", "", "Game")
-    </span>
-    <span class="menu-item">
-        @Html.ActionLink("Login", "", "Login")
-    </span>
-    <span class="menu-item">
-        @Html.ActionLink("Registration", "", "Registration")
-    </span>
+    @if (Session["login"] != null)
+    {
+        <span class="menu-item">
+            @Html.ActionLink("Play!", "", "Game")
+        </span>
+    }
+    else
+    {
+        <span class="menu-item">
+            @Html.ActionLink("Login", "", "Login")
+        </span>
+        <span class="menu-item">
+            @Html.ActionLink("Registration", "", "Registration")
+        </span>
+    }
 </div>
