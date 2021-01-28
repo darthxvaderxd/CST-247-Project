@@ -52,3 +52,12 @@ F:\school_code\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\net
 F:\school_code\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.csproj.CoreCompileInputs.cache
 F:\school_code\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.dll
 F:\school_code\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.pdb
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\bin\Debug\netstandard2.0\MineSweeperClassLibrary.deps.json
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\bin\Debug\netstandard2.0\MineSweeperClassLibrary.dll
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\bin\Debug\netstandard2.0\MineSweeperClassLibrary.pdb
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.csprojAssemblyReference.cache
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.AssemblyInfoInputs.cache
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.AssemblyInfo.cs
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.dll
+C:\Users\Shawn\source\CST-323\CST-247-Project\Minesweeper\MineSweeperClassLibrary\obj\Debug\netstandard2.0\MineSweeperClassLibrary.pdb
