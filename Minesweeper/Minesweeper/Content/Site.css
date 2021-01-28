@@ -50,19 +50,15 @@ textarea {
 }
 
 .game-board {
-    border: 1px outset lightgrey;
-    border-collapse: collapse;
+    border: 3px solid black;
+    margin: auto;
 }
 
 img {
     display: block;
 }
 
-.game-board {
-    margin: auto;
-}
-
-.game-button {
+.game-button {    
     border: 0;
     padding: 0;
     margin: 0;
@@ -73,13 +69,13 @@ img {
 .game-board-cell {
     margin: auto;
     text-align: center;
-    width: 55px;
+    width: 56px;
     padding: 0;
 }
 
 .game-board-row {
     background-color: lightgrey;
-    height: 55px;
+    height: 56px;
     padding: 0;
 }
 
