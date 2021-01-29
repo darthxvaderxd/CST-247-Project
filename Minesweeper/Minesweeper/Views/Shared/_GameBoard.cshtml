@@ -1,0 +1,103 @@
+﻿@model Minesweeper.Services.Game.GameService
+
+<div class="game-title">
+    <h1>
+        @if (Model.gameOver && Model.isWinner)
+        {
+            <span>Game Over! You win!</span>
+        }
+        else if (Model.gameOver)
+        {
+            <span>Game Over! You Lose!</span>
+        }
+        else
+        {
+            <span>Game Running</span>
+        }
+    </h1>
+</div>
+<div class="game">
+    @using (Ajax.BeginForm("OnLeftMouseClick", "Game", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "gameBoard" }))
+    {
+        <table class="game-board">
+            @for (int row = 0; row < 10; row++)
+            {
+                <tr class="game-board-row">
+                    @for (int col = 0; col < 10; col++)
+                    {
+                        <td class="game-board-cell">
+                            @if (Model.gameBoard.Grid[row, col].Visited && !Model.gameBoard.Grid[row, col].Live)
+                            {
+                                if (@Model.gameBoard.Grid[row, col].LiveNeighbors > 0)
+                                {
+                                    @Model.gameBoard.Grid[row, col].LiveNeighbors
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            else if (Model.gameOver)
+                            {
+                                if (@Model.gameBoard.Grid[row, col].Live)
+                                {
+                                    <img src="~/Images/Bomb.png" />
+                                }
+                                else if (@Model.gameBoard.Grid[row, col].LiveNeighbors > 0)
+                                {
+                                    @Model.gameBoard.Grid[row, col].LiveNeighbors
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            else
+                            {
+                                {
+                                    string val = row + "|" + col;
+                                    <button class="game-button" type="submit" name="mine" value=@val>
+                                        @if (Model.gameBoard.Grid[row, col].IsFlagged)
+                                        {
+                                            <img src="~/Images/Flag.png" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Images/Tile.png" />
+                                        }
+                                    </button>
+                                }
+                            }
+                        </td>
+                    }
+                </tr>
+
+            }
+        </table>
+    }
+</div>
+<script>
+        $(document).ready(function () {
+            $(document).contextmenu(function () {
+                return false;
+            });
+            
+            $('.game-button').mousedown(function (event) {
+                if (event.which == 3) {
+                    $.ajax({
+                        cache: false,
+                        url: "@Url.Action("OnRightMouseClick", "Game")",
+                        data:
+                        {
+                            mine: this.getAttribute("value")
+                        },
+                        success: function (data)
+                        {
+                        $("#gameBoard").html(data);
+                        },
+                        type: "POST"
+                    });
+                }
+            });
+        });
+</script>

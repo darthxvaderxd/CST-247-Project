@@ -24,7 +24,7 @@ namespace Minesweeper.Controllers
             return View("Game", gameService);
         }
 
-        // Action method for responding to a player's left mouse click
+        // Action method for responding to a player's left mouse click using Ajax.
         // POST: OnLeftMouesClick
         [HttpPost]
         public ActionResult OnLeftMouseClick(string mine)
@@ -32,10 +32,11 @@ namespace Minesweeper.Controllers
             // Send clicked cell's grid coordinates and take a turn
             gameService.TakeTurn(mine);
 
-            return View("Game", gameService);
+            // Returns partial view for Ajax
+            return PartialView("_GameBoard", gameService);
         }
 
-        // Action method for responding to a player's right moues click.
+        // Action method for responding to a player's right moues click using Ajax.
         // POST: OnRightMouseClick
         [HttpPost]
         public ActionResult OnRightMouseClick(string mine)
@@ -43,7 +44,8 @@ namespace Minesweeper.Controllers
             // Send clicked cell's grid coordinates to flag cell
             gameService.FlagCell(mine);
 
-            return View("Game", gameService);
+            // Returns partial view for Ajax
+            return PartialView("_GameBoard", gameService);
         }
 
         // Method for reseting the game
