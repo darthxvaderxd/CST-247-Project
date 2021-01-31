@@ -4,22 +4,24 @@ using System.Web.Mvc;
 
 namespace Minesweeper.Controllers
 {
+
     // Controller for actions related to the running of Minesweeper game
+    [CustomAuthorization] // Authorization filter for logged in users
     public class GameController : Controller
     {
         // Static instance of GameService for controlling all aspects of game play
         private static GameService gameService = new GameService();
-
+        
         // Action method for starting the game page
-        // GET: Game
+        // POST: Game
+        [HttpPost]
         public ActionResult Game()
         {
-            if (Session["login"] == null)
-            {
-                return RedirectToRoute("Login");
-            }
+            // Get size and difficulty from POST data 
+            int size = int.Parse(Request["size"].ToString());
+            int difficulty = int.Parse(Request["difficulty"].ToString());
 
-            gameService.StartGame();
+            gameService.StartGame(size, difficulty); // Start game service
 
             return View("Game", gameService);
         }

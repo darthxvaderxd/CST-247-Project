@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Minesweeper.Services.Data
 {
@@ -38,6 +39,10 @@ namespace Minesweeper.Services.Data
                     if (reader.HasRows)
                     {
                         success = true;
+                        while (reader.Read())
+                        {
+                            HttpContext.Current.Session["UserInfo"] = reader["username"].ToString();
+                        }
                     }
 
                     reader.Close();

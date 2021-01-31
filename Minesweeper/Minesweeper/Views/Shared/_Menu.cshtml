@@ -2,7 +2,10 @@
     @if (Session["login"] != null)
     {
         <span class="menu-item">
-            @Html.ActionLink("Play!", "", "Game")
+            @Html.ActionLink("Play!", "", "Home")
+        </span>
+        <span class="menu-item">
+            @Html.ActionLink("Logout", "Logout", "Login")
         </span>
     }
     else

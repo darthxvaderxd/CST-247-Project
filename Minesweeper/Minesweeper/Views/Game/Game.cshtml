@@ -15,7 +15,14 @@
     {
         @Html.AntiForgeryToken()
         <button type="submit">
-            New Game
+            Reset Board
+        </button>
+    }
+    @using (Html.BeginForm("Index", "Home"))
+    {
+        @Html.AntiForgeryToken()
+        <button type="submit">
+            Main Menu
         </button>
     }
 </div>

@@ -20,10 +20,10 @@
     @using (Ajax.BeginForm("OnLeftMouseClick", "Game", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "gameBoard" }))
     {
         <table class="game-board">
-            @for (int row = 0; row < 10; row++)
+            @for (int row = 0; row < Model.gameBoard.Size; row++)
             {
                 <tr class="game-board-row">
-                    @for (int col = 0; col < 10; col++)
+                    @for (int col = 0; col < Model.gameBoard.Size; col++)
                     {
                         <td class="game-board-cell">
                             @if (Model.gameBoard.Grid[row, col].Visited && !Model.gameBoard.Grid[row, col].Live)

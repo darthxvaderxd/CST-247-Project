@@ -1,10 +1,32 @@
-﻿
-@{
-    ViewBag.Title = "Minsweeper - Home";
+﻿@{
+    ViewBag.Title = "Minesweeper - Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using (Html.BeginForm("Game", "Game", FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
 <div>
-    <h1>Home Page!</h1>
+    @Html.Label("Board Size")
+    <br />
+    Small: @Html.RadioButton("size", 8, true)
+    <br />
+    Medium: @Html.RadioButton("size", 12)
+    <br />
+    Large: @Html.RadioButton("size", 16)
 </div>
-
+<br />
+<div>
+    @Html.Label("Difficulty")
+    <br />
+    Easy: @Html.RadioButton("difficulty", 1, true)
+    <br />
+    Normal: @Html.RadioButton("difficulty", 2)
+    <br />
+    Hard: @Html.RadioButton("difficulty", 3)
+</div>
+<br />
+<div>
+    <button type="submit">Go</button>
+</div>                
+}

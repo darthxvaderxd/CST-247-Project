@@ -8,10 +8,26 @@ namespace Minesweeper.Services.Game
         public Board gameBoard = new Board(10, 1); // Class with game functions
         public bool gameOver = false; // Boolean for if game is over
         public bool isWinner = false; // Boolean for if the player won
+        private int Size { get; set; } // Board size in cells x cells
+        private int Difficulty { get; set; } // Difficulty rating
 
         // Method for starting a new game
         public void StartGame()
         {
+            gameBoard.SetupLiveNeighbors(); // Place bombs in grid
+            gameBoard.CalculateLiveNeighbors(); // Calculate live neighbor count for cells
+        }
+
+        // Method for starting a new game with size and difficulty set
+        public void StartGame(int size, int difficulty)
+        {
+            // Set variables
+            gameOver = false;
+            isWinner = false;
+            Size = size;
+            Difficulty = difficulty;
+
+            gameBoard = new Board(size, difficulty); // Setup game board
             gameBoard.SetupLiveNeighbors(); // Place bombs in grid
             gameBoard.CalculateLiveNeighbors(); // Calculate live neighbor count for cells
         }
@@ -78,7 +94,7 @@ namespace Minesweeper.Services.Game
         // Method to reset the game.
         public void ResetGame()
         {
-            gameBoard = new Board(10, 1);
+            gameBoard = new Board(Size, Difficulty);
             gameOver = false;
             isWinner = false;
         }
