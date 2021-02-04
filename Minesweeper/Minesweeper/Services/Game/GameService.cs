@@ -1,11 +1,16 @@
-﻿using MineSweeperClassLibrary;
+﻿using Minesweeper.Services.Data;
+using MineSweeperClassLibrary;
+using System;
+using System.Collections.Generic;
+using System.Web;
 
 namespace Minesweeper.Services.Game
 {
     // Service for Game related functions
     public class GameService
     {
-        public Board gameBoard = new Board(10, 1); // Class with game functions
+        public Board gameBoard = new Board(8, 1); // Class with game functions
+        public List<PlayerStats> highScoreList = new List<PlayerStats>();
         public bool gameOver = false; // Boolean for if game is over
         public bool isWinner = false; // Boolean for if the player won
         private int Size { get; set; } // Board size in cells x cells
@@ -30,6 +35,7 @@ namespace Minesweeper.Services.Game
             gameBoard = new Board(size, difficulty); // Setup game board
             gameBoard.SetupLiveNeighbors(); // Place bombs in grid
             gameBoard.CalculateLiveNeighbors(); // Calculate live neighbor count for cells
+            GetHighScores();
         }
 
         // Method for handling one turn. Takes cell coordinates as input
@@ -47,13 +53,13 @@ namespace Minesweeper.Services.Game
                 gameBoard.FloodFill(r, c);
 
                 // Check if user clicked on a bomb or cleared the board completing game.
-                if (gameBoard.Grid[r, c].Live || allCellsVisited())
+                if (gameBoard.Grid[r, c].Live || AllCellsVisited())
                 {
                     gameOver = true;
                 }
 
                 // Check if payer won the game through clearing the board.
-                if (allCellsVisited())
+                if (AllCellsVisited())
                 {
                     isWinner = true;
                 }
@@ -73,7 +79,7 @@ namespace Minesweeper.Services.Game
         }
 
         // Method for checking if all cells have been visited
-        private bool allCellsVisited()
+        private bool AllCellsVisited()
         {
             bool allVisited = true; // Boolean to check if all tiles are visited
 
@@ -97,6 +103,21 @@ namespace Minesweeper.Services.Game
             gameBoard = new Board(Size, Difficulty);
             gameOver = false;
             isWinner = false;
+        }
+
+        public void SaveScore(string time)
+        {
+            string user = HttpContext.Current.Session["UserInfo"].ToString();
+            TimeSpan ts = TimeSpan.Parse(time);
+            PlayerStats newPlayerStats = new PlayerStats(user, ts, Difficulty, Size);
+            HighScoreDAO highScore = new HighScoreDAO();
+            highScore.AddScore(newPlayerStats);
+        }
+
+        private void GetHighScores()
+        {
+            HighScoreDAO highScore = new HighScoreDAO();
+            highScoreList = highScore.GetHighScores(Size, Difficulty);
         }
     }
 }

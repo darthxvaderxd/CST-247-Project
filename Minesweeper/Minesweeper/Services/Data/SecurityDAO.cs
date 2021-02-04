@@ -42,6 +42,7 @@ namespace Minesweeper.Services.Data
                         while (reader.Read())
                         {
                             HttpContext.Current.Session["UserInfo"] = reader["username"].ToString();
+                            HttpContext.Current.Session["UserId"] = reader["Id"].ToString();
                         }
                     }
 

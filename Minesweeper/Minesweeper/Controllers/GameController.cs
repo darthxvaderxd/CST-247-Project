@@ -1,5 +1,6 @@
 ﻿using Minesweeper.Services.Game;
 using MineSweeperClassLibrary;
+using System;
 using System.Web.Mvc;
 
 namespace Minesweeper.Controllers
@@ -57,6 +58,11 @@ namespace Minesweeper.Controllers
             gameService.StartGame();
 
             return View("Game", gameService);
+        }
+
+        public void PlayerStats(string time)
+        {
+            gameService.SaveScore(time);                       
         }
     }
 }

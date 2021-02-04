@@ -77,14 +77,35 @@
     }
 </div>
 <script>
-        $(document).ready(function () {
-            $(document).contextmenu(function () {
-                return false;
-            });
-            
-            $('.game-button').mousedown(function (event) {
-                if (event.which == 3) {
-                    $.ajax({
+    var GameOver = "@Html.Raw(Model.gameOver)";
+    var IsWinner = "@Html.Raw(Model.isWinner)";
+
+    $(document).ready(function() {
+        if (GameOver == "True" && IsWinner == "True") {  
+            sw.stop();
+            var elapsedTime = $("#sw-time").html();
+            $("#user-time").html("Time: " + elapsedTime);
+            $("#modal-title").html("YOU WIN!");
+            $("#myModal").modal();
+            $.post("@Url.Action("PlayerStats", "Game")", { time: elapsedTime });
+        } else if (GameOver == "True") {
+            sw.stop();
+            $("#modal-title").html("YOU LOSE!");
+            $("#myModal").modal();
+        }
+
+        $(document).contextmenu(function() {
+            return false;
+        });
+
+        $('.game-button').mousedown(function (event) {
+            if (turns == 0) {
+                sw.start();
+            };
+            turns++;
+            if (event.which == 3) {
+                $("#timer").html(turns.toString());
+                $.ajax({
                         cache: false,
                         url: "@Url.Action("OnRightMouseClick", "Game")",
                         data:
@@ -96,8 +117,9 @@
                         $("#gameBoard").html(data);
                         },
                         type: "POST"
-                    });
-                }
-            });
+                });
+            }
         });
+        $("#timer").html(turns.toString());        
+    });
 </script>
