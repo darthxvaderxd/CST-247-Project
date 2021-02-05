@@ -76,35 +76,85 @@
         </table>
     }
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>@Session["UserInfo"].ToString()</p>
+                <p id="user-time"></p>
+                <hr />
+                <h4 class="align-content-center" id="modal-list">High Scores</h4>
+                <ol>
+                    @foreach (var player in Model.highScoreList)
+                    {
+                        <li>@player.PlayerInitials @player.TimeSpanString</li>
+                    }
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <script>
+    // Variables for checking game status
     var GameOver = "@Html.Raw(Model.gameOver)";
     var IsWinner = "@Html.Raw(Model.isWinner)";
 
+    // Execute when document ready
     $(document).ready(function() {
-        if (GameOver == "True" && IsWinner == "True") {  
-            sw.stop();
-            var elapsedTime = $("#sw-time").html();
-            $("#user-time").html("Time: " + elapsedTime);
-            $("#modal-title").html("YOU WIN!");
-            $("#myModal").modal();
-            $.post("@Url.Action("PlayerStats", "Game")", { time: elapsedTime });
+        if (GameOver == "True" && IsWinner == "True" && !Updated) {
+            sw.stop(); // Stop the timer
+            var elapsedTime = $("#sw-time").html(); // Get elapsed time
+            Updated = true; // Set boolean to true for updating score list
+            // Add the players results to highscore list and refresh page
+            $.ajax({
+                cache: false,
+                url: "@Url.Action("PlayerStats", "Game")",
+                data:
+                {
+                    time: elapsedTime
+                },
+                success: function (data) {
+                    $("#gameBoard").html(data);
+                },
+                type: "POST"
+            });  
+        } else if (GameOver == "True" && IsWinner == "True" && Updated) {
+            var elapsedTime = $("#sw-time").html(); // Get elapsed time
+            $("#user-time").html(elapsedTime); // Update Modal time
+            $("#modal-title").html("YOU WIN!"); // Change title of modal
+            $("#myModal").modal(); // Toggle Modal
         } else if (GameOver == "True") {
-            sw.stop();
-            $("#modal-title").html("YOU LOSE!");
-            $("#myModal").modal();
+            sw.stop(); // Stop timer
+            $("#modal-title").html("YOU LOSE!"); // Change modal title
+            $("#myModal").modal(); // Toggle the modal
         }
 
+        // Disable right click menu
         $(document).contextmenu(function() {
             return false;
         });
 
+        // Handle mouse click event
         $('.game-button').mousedown(function (event) {
+            // If first click of the game, start timer
             if (turns == 0) {
                 sw.start();
             };
+            // Increment turn counter
             turns++;
+            // Check for right mouse click
             if (event.which == 3) {
-                $("#timer").html(turns.toString());
+                // Send ajax message for right mouse click to GameController
                 $.ajax({
                         cache: false,
                         url: "@Url.Action("OnRightMouseClick", "Game")",
@@ -119,7 +169,8 @@
                         type: "POST"
                 });
             }
+            $("#turn-counter").html(turns.toString()); // Update turn counter
         });
-        $("#timer").html(turns.toString());        
+
     });
 </script>

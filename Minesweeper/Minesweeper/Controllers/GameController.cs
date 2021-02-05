@@ -60,9 +60,13 @@ namespace Minesweeper.Controllers
             return View("Game", gameService);
         }
 
-        public void PlayerStats(string time)
+        // Method for adding player score to highScore table
+        public ActionResult PlayerStats(string time)
         {
-            gameService.SaveScore(time);                       
+            gameService.SaveScore(time);
+
+            // Returns partial view for Ajax
+            return PartialView("_GameBoard", gameService);
         }
     }
 }

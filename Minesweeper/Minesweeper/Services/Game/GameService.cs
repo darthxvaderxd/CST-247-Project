@@ -10,11 +10,11 @@ namespace Minesweeper.Services.Game
     public class GameService
     {
         public Board gameBoard = new Board(8, 1); // Class with game functions
-        public List<PlayerStats> highScoreList = new List<PlayerStats>();
+        public List<PlayerStats> highScoreList = new List<PlayerStats>(); // High Score list
         public bool gameOver = false; // Boolean for if game is over
         public bool isWinner = false; // Boolean for if the player won
-        private int Size { get; set; } // Board size in cells x cells
-        private int Difficulty { get; set; } // Difficulty rating
+        public int Size { get; set; } // Board size in cells x cells
+        public int Difficulty { get; set; } // Difficulty rating
 
         // Method for starting a new game
         public void StartGame()
@@ -35,7 +35,7 @@ namespace Minesweeper.Services.Game
             gameBoard = new Board(size, difficulty); // Setup game board
             gameBoard.SetupLiveNeighbors(); // Place bombs in grid
             gameBoard.CalculateLiveNeighbors(); // Calculate live neighbor count for cells
-            GetHighScores();
+            GetTopTenScores(); // Populate highScoreList with scores
         }
 
         // Method for handling one turn. Takes cell coordinates as input
@@ -105,18 +105,29 @@ namespace Minesweeper.Services.Game
             isWinner = false;
         }
 
+        // Method for adding player results to table. Takes string of time in "00:00:00" format
         public void SaveScore(string time)
         {
+            // Get Username from Session
             string user = HttpContext.Current.Session["UserInfo"].ToString();
+            // Parse time into TimeSpan
             TimeSpan ts = TimeSpan.Parse(time);
+            // Create PlayerStats instance for new results
             PlayerStats newPlayerStats = new PlayerStats(user, ts, Difficulty, Size);
+            // Create instance of HighScoreDAO for accessing database
             HighScoreDAO highScore = new HighScoreDAO();
+            // Add new result to database
             highScore.AddScore(newPlayerStats);
+            // Update current Top Ten Scores
+            GetTopTenScores();
         }
 
-        private void GetHighScores()
+        // Method to get top 10 high scores for current board size and difficulty
+        private void GetTopTenScores()
         {
+            // Create instance of HighScoreDAO for accessing database
             HighScoreDAO highScore = new HighScoreDAO();
+            // Retrieve top ten scores for current board and difficulty to List<PlayerStats>
             highScoreList = highScore.GetHighScores(Size, Difficulty);
         }
     }

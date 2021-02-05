@@ -7,7 +7,7 @@
 
 <div id="stopwatch">
     <div id="sw-time">00:00:00</div>
-    <div id="timer">0</div>
+    <div id="turn-counter">0</div>
 </div>
 <div id="gameBoard">
     @Html.Partial("~/Views/Shared/_GameBoard.cshtml")
@@ -29,85 +29,11 @@
     }
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Username: @Session["UserInfo"].ToString()</p>
-                <p id="user-time"></p>
-                <ol>
-                    @foreach (var player in Model.highScoreList)
-                    {
-                        <li>@player.PlayerInitials @player.TimeSpanString</li>
-                    }
-
-                </ol>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
+<script src="~/Scripts/stopWatch.js"></script>
 <script>
+    // Variable to count game turns
     var turns = 0;
-
-    var sw = {
-        // (A) INITIALIZE
-        etime: null, // HTML time display
-        init: function () {
-            // (A1) GET HTML ELEMENTS
-            sw.etime = document.getElementById("sw-time");
-        },
-
-        // (B) TIMER ACTION
-        timer: null, // timer object
-        now: 0, // current elapsed time
-        tick: function () {
-            // (B1) CALCULATE HOURS, MINS, SECONDS
-            sw.now++;
-            var remain = sw.now;
-            var hours = Math.floor(remain / 3600);
-            remain -= hours * 3600;
-            var mins = Math.floor(remain / 60);
-            remain -= mins * 60;
-            var secs = remain;
-
-            // (B2) UPDATE THE DISPLAY TIMER
-            if (hours < 10) { hours = "0" + hours; }
-            if (mins < 10) { mins = "0" + mins; }
-            if (secs < 10) { secs = "0" + secs; }
-            sw.etime.innerHTML = hours + ":" + mins + ":" + secs;
-        },
-
-        // (C) START!
-        start: function () {
-            sw.timer = setInterval(sw.tick, 1000);
-        },
-
-        // (D) STOP
-        stop: function () {
-            clearInterval(sw.timer);
-            sw.timer = null;
-        },
-
-        // (E) RESET
-        reset: function () {
-            if (sw.timer != null) { sw.stop(); }
-            sw.now = -1;
-            sw.tick();
-        }
-    };
-
-    if (sw.timer == null) {
-        sw.init();
-    };
-
+    // Variable to track if high score list was updated
+    var Updated = false;
 </script>
