@@ -19,7 +19,7 @@ namespace MineSweeperClassLibrary
         public string PlayerInitials { get; set; }
         public double DifficultyLevel { get; set; }
         public int BoardSize { get; set; }
-        public TimeSpan time { get; set; }
+        public TimeSpan Time { get; set; }
         public string TimeSpanString { get; set; }
 
         public PlayerStats() { }
@@ -27,7 +27,7 @@ namespace MineSweeperClassLibrary
         public PlayerStats(string playerInitials, TimeSpan time, double difficultyLevel, int boardSize)
         {
             this.PlayerInitials = playerInitials;
-            this.time = time;
+            this.Time = time;
             this.DifficultyLevel = difficultyLevel;
             this.BoardSize = boardSize;
         }
@@ -35,18 +35,18 @@ namespace MineSweeperClassLibrary
         // Override the ToString to output all information for save file
         public override string ToString()
         {
-            return this.PlayerInitials + ", " + this.time;
+            return this.PlayerInitials + ", " + this.Time;
         }
 
         // Implement ICompareable. Sort by time and then initials
         public int CompareTo(PlayerStats obj)
         {
-            if (this.time == obj.time)
+            if (this.Time == obj.Time)
             {
                 return this.PlayerInitials.CompareTo(obj.PlayerInitials);
             }
 
-            return this.time.CompareTo(obj.time);
+            return this.Time.CompareTo(obj.Time);
         }
     }
 }

@@ -35,9 +35,11 @@ namespace MineSweeperClassLibrary
             {
                 for (int col = 0; col < Size; col++)
                 {
-                    Grid[row, col] = new Cell();
-                    Grid[row, col].Row = row;
-                    Grid[row, col].Col = col;
+                    Grid[row, col] = new Cell
+                    {
+                        Row = row,
+                        Col = col
+                    };
                 }
             }
         }

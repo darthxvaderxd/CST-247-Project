@@ -11,7 +11,7 @@ namespace Minesweeper.Controllers
     public class GameController : Controller
     {
         // Static instance of GameService for controlling all aspects of game play
-        private static GameService gameService = new GameService();
+        private static readonly GameService gameService = new GameService();
         
         // Action method for starting the game page
         // POST: Game

@@ -128,7 +128,7 @@ namespace Minesweeper.Services.Game
             // Create instance of HighScoreDAO for accessing database
             HighScoreDAO highScore = new HighScoreDAO();
             // Retrieve top ten scores for current board and difficulty to List<PlayerStats>
-            highScoreList = highScore.GetHighScores(Size, Difficulty);
+            highScoreList = highScore.GetTopTenScores(Size, Difficulty);
         }
     }
 }
