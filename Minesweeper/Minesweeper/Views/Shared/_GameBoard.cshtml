@@ -1,21 +1,5 @@
 ﻿@model Minesweeper.Services.Game.GameService
 
-<div class="game-title">
-    <h1>
-        @if (Model.gameOver && Model.isWinner)
-        {
-            <span>Game Over! You win!</span>
-        }
-        else if (Model.gameOver)
-        {
-            <span>Game Over! You Lose!</span>
-        }
-        else
-        {
-            <span>Game Running</span>
-        }
-    </h1>
-</div>
 <div class="game">
     @using (Ajax.BeginForm("OnLeftMouseClick", "Game", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "gameBoard" }))
     {
@@ -85,9 +69,8 @@
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-title">Modal Header</h4>
             </div>
-            <div class="modal-body">
-                <p>@Session["UserInfo"].ToString()</p>
-                <p id="user-time"></p>
+            <div class="modal-body" id="modal-body">
+                <span>@Session["UserInfo"].ToString(): </span><span id="user-time"></span>
                 <hr />
                 <h4 class="align-content-center" id="modal-list">High Scores</h4>
                 <ol>
@@ -136,6 +119,7 @@
         } else if (GameOver == "True") {
             sw.stop(); // Stop timer
             $("#modal-title").html("YOU LOSE!"); // Change modal title
+            $("#modal-body").html("Better luck next time!"); // Change modal body
             $("#myModal").modal(); // Toggle the modal
         }
 
