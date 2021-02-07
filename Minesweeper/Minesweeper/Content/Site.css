@@ -125,3 +125,36 @@ img {
     right: 0;
     text-align: center;
 }
+
+.game-board-options {
+    padding: 0.4rem;
+}
+
+.game-board-option {
+    border: 0.1rem dashed #222222;
+    background-color: #cccccc;
+    margin-bottom: 0.4rem;
+    margin-top: 0.4rem;
+}
+
+.game-board-options-label {
+    background-color: #777777;
+    border-bottom: 0.1rem solid #222222;
+    color: #ff6a00;
+    font-weight: bolder;
+    margin: 0;
+    padding: 0.4rem;
+}
+
+.game-board-options-option {
+    margin: 0;
+    padding: 0.2rem;
+}
+
+#stopwatch {
+    padding: 0.4rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    color: #ff6a00;
+}
