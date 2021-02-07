@@ -9,7 +9,7 @@ namespace Minesweeper.Services.Game
     // Service for Game related functions
     public class GameService
     {
-        public Board gameBoard = new Board(8, 1); // Class with game functions
+        public Board gameBoard = new Board(5, 1); // Class with game functions
         public List<PlayerStats> highScoreList = new List<PlayerStats>(); // High Score list
         public bool gameOver = false; // Boolean for if game is over
         public bool isWinner = false; // Boolean for if the player won
