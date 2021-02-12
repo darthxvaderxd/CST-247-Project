@@ -59,7 +59,14 @@
             }
         </table>
     }
+    <div>
+        <button type="submit" onclick="testFunction()">Save</button>
+    </div>
+    <div>
+        <button type="submit" onclick="loadFunction()">Load</button>
+    </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -91,6 +98,41 @@
     // Variables for checking game status
     var GameOver = "@Html.Raw(Model.gameOver)";
     var IsWinner = "@Html.Raw(Model.isWinner)";
+    var timeUpdate = @Html.Raw(Model.Timer);
+    var turnUpdate = @Html.Raw(Model.Turns);
+
+    // Execute to save game
+    function testFunction() {
+        var elapsedTime = sw.now;
+        $.ajax({
+                cache: false,
+                url: "@Url.Action("OnSave", "Game")",
+                data:
+                {
+                    time: elapsedTime,
+                    turnsCount: turns
+                },
+                success: function (data) {
+                    $("#gameBoard").html(data);
+                    alert("Game Saved");
+                },
+                type: "POST"
+        });
+    }
+
+    // Execute to load game
+    function loadFunction() {
+        sw.stop();
+        $.ajax({
+                cache: false,
+                url: "@Url.Action("OnLoad", "Game")",
+                success: function (data) {
+                    $("#gameBoard").html(data);
+                    alert("Game Loaded"); 
+                },
+                type: "POST"
+        });             
+    }
 
     // Execute when document ready
     $(document).ready(function() {
@@ -110,7 +152,7 @@
                     $("#gameBoard").html(data);
                 },
                 type: "POST"
-            });  
+            });
         } else if (GameOver == "True" && IsWinner == "True" && Updated) {
             var elapsedTime = $("#sw-time").html(); // Get elapsed time
             $("#user-time").html(elapsedTime); // Update Modal time
@@ -155,6 +197,15 @@
             }
             $("#turn-counter").html(turns.toString()); // Update turn counter
         });
+
+        // Check if game was loaded and update board
+        if (turnUpdate > 0 && !loadUpdated) {
+            sw.now = timeUpdate; // Update time
+            sw.start();
+            turns = turnUpdate; // Update turns
+            $("#turn-counter").html(turns.toString()); // Update turn counter
+            loadUpdated = true;
+        }
 
     });
 </script>

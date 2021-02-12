@@ -1,5 +1,8 @@
-﻿using Minesweeper.Services.Game;
+﻿using Minesweeper.Models;
+using Minesweeper.Services.Data;
+using Minesweeper.Services.Game;
 using MineSweeperClassLibrary;
+using Newtonsoft.Json;
 using System;
 using System.Web.Mvc;
 
@@ -64,6 +67,24 @@ namespace Minesweeper.Controllers
         public ActionResult PlayerStats(string time)
         {
             gameService.SaveScore(time);
+
+            // Returns partial view for Ajax
+            return PartialView("_GameBoard", gameService);
+        }
+
+        // Save a game. Requires current game time and turns
+        public ActionResult OnSave(int time, int turnsCount)
+        {
+            gameService.SaveGame(time, turnsCount);
+
+            // Returns partial view for Ajax
+            return PartialView("_GameBoard", gameService);
+        }
+
+        // Load a game.
+        public ActionResult OnLoad()
+        {
+            gameService.GameLoad();
 
             // Returns partial view for Ajax
             return PartialView("_GameBoard", gameService);

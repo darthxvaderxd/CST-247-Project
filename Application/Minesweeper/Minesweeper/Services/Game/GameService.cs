@@ -1,5 +1,7 @@
-﻿using Minesweeper.Services.Data;
+﻿using Minesweeper.Models;
+using Minesweeper.Services.Data;
 using MineSweeperClassLibrary;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -14,7 +16,9 @@ namespace Minesweeper.Services.Game
         public bool gameOver = false; // Boolean for if game is over
         public bool isWinner = false; // Boolean for if the player won
         public int Size { get; set; } // Board size in cells x cells
-        public int Difficulty { get; set; } // Difficulty rating
+        public double Difficulty { get; set; } // Difficulty rating
+        public int Timer { get; set; } // Timer for saved game
+        public int Turns { get; set; } // Turns count for saved game
 
         // Method for starting a new game
         public void StartGame()
@@ -24,11 +28,13 @@ namespace Minesweeper.Services.Game
         }
 
         // Method for starting a new game with size and difficulty set
-        public void StartGame(int size, int difficulty)
+        public void StartGame(int size, double difficulty)
         {
             // Set variables
             gameOver = false;
             isWinner = false;
+            Timer = 0;
+            Turns = 0;
             Size = size;
             Difficulty = difficulty;
 
@@ -103,6 +109,8 @@ namespace Minesweeper.Services.Game
             gameBoard = new Board(Size, Difficulty);
             gameOver = false;
             isWinner = false;
+            Timer = 0;
+            Turns = 0;
         }
 
         // Method for adding player results to table. Takes string of time in "00:00:00" format
@@ -129,6 +137,56 @@ namespace Minesweeper.Services.Game
             HighScoreDAO highScore = new HighScoreDAO();
             // Retrieve top ten scores for current board and difficulty to List<PlayerStats>
             highScoreList = highScore.GetTopTenScores(Size, Difficulty);
+        }
+
+        //Save a game. Takes current time and turns as argument.
+        public bool SaveGame(int time, int turnsCount)
+        {
+            GamesDAO gamesDAO = new GamesDAO(); // GamesDAO for accessing database
+
+            // GameData for holding current game data
+            GameData gameData = new GameData
+            {
+                // Load gameData with current game's data
+                UserId = int.Parse((String)HttpContext.Current.Session["UserId"]),
+                Turns = turnsCount,
+                Timer = time,
+                Size = this.Size,
+                Difficulty = (int)this.Difficulty,
+                // Convert current game Board to JSON for storage in database
+                JSONData = JsonConvert.SerializeObject(this.gameBoard)
+            };
+
+            // Call SaveGame() method with current gameData to save game.
+            bool success = gamesDAO.SaveGame(gameData);
+
+            return success;
+        }
+
+        // Load a saved game
+        public bool GameLoad()
+        {
+            GamesDAO gamesDAO = new GamesDAO(); // GamesDAO for accessing database
+            GameData gameData = new GameData(); // gameData object for holding results
+
+            // Call LoadGame method with board size and difficulty to load applicable game
+            gameData = gamesDAO.LoadGame(this.Size, this.Difficulty);
+
+            // Try to convert saved game data from JSON back to Board object and load to current game board.
+            try
+            {
+                this.gameBoard = JsonConvert.DeserializeObject<Board>(gameData.JSONData);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            // Get timer and turn data from results
+            this.Turns = gameData.Turns;
+            this.Timer = gameData.Timer;
+
+            return true;
         }
     }
 }

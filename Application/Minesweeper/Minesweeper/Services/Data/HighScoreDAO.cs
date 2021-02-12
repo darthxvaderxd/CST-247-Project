@@ -47,7 +47,7 @@ namespace Minesweeper.Services.Data
         }
 
         // Retrieve top 10 scores for current board size and difficulty setting
-        public List<PlayerStats> GetTopTenScores(int size, int difficulty)
+        public List<PlayerStats> GetTopTenScores(int size, double difficulty)
         {
             // List to hold results
             List<PlayerStats> highScoreList = new List<PlayerStats>();

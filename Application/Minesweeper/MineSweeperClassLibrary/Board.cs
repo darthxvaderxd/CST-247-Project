@@ -20,7 +20,7 @@ namespace MineSweeperClassLibrary
         public double Difficulty { get; set; } // Difficultly of game as percentage
 
         // Board constructor. Takes size as an argument
-        public Board(int size, int difficulty)
+        public Board(int size, double difficulty)
         {
             this.Size = size;
             this.Grid = new Cell[Size, Size]; // Set Cell array to Size x Size
