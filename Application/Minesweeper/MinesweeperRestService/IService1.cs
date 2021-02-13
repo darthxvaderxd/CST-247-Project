@@ -14,8 +14,8 @@ namespace MinesweeperRestService
     public interface IService1
 	{
 		[OperationContract]
-		[WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetScores")]
-		CompositeResult GetScores();
+		[WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "GetScores/{id}")]
+		CompositeResult GetScores(string id);
 	}
 
 	// Use a data contract as illustrated in the sample below to add composite types to service operations.

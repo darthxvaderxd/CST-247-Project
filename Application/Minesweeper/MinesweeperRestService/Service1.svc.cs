@@ -16,7 +16,7 @@ namespace MinesweeperRestService
     public class Service1 : IService1
     {
         HighScoreDAO service = new HighScoreDAO();
-        public CompositeResult GetScores()
+        public CompositeResult GetScores(string id)
         {
             CompositeResult response = new CompositeResult();
             response.Error = false;
@@ -24,7 +24,14 @@ namespace MinesweeperRestService
 
             try
             {
-                response.Scores = service.GetScoresForUser(1002);
+                List<PlayerStats> scores = service.GetScoresForUser(int.Parse(id));
+                if (scores.Count > 0) {
+                    response.Scores = scores;
+                } else
+                {
+                    response.Error = true;
+                    response.Message = "No scores found";
+                }
             }
             catch (Exception e)
             {
