@@ -104,5 +104,61 @@ namespace Minesweeper.Services.Data
             }
             return highScoreList;
         }
+
+        public List<PlayerStats> GetScoresForUser(int userId)
+        {
+            // List to hold results
+            List<PlayerStats> scores = new List<PlayerStats>();
+
+            string queryString = "SELECT * FROM dbo.highScores WHERE \"user\" = @userId";
+
+            // Set connection with connection string
+            using (SqlConnection connection = new SqlConnection(GlobalVAR.CONNECTIONSTRING))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                // Set parameters for prepared statement
+                command.Parameters.Add("@userId", System.Data.SqlDbType.Int).Value = userId;
+
+                // Try to access database and retrieve results
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    // Check if query returned results. If results add to highScoreList
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            // Get time as ticks from database and convert to timespan
+                            TimeSpan ts = new TimeSpan();
+                            long timespan;
+                            timespan = (long)reader["timespan"];
+                            ts = TimeSpan.FromTicks(timespan);
+
+                            // Create PlayerStats instance and populate
+                            PlayerStats playerStats = new PlayerStats
+                            {
+                                TimeSpanString = ts.ToString(),
+                                Time = ts,
+                                PlayerInitials = reader["username"].ToString(),
+                                DifficultyLevel = (int)reader["difficulty"],
+                                BoardSize = (int)reader["boardsize"]
+                            };
+
+                            // Add PlayerStats to highScoreList
+                            scores.Add(playerStats);
+                        }
+                    }
+                    reader.Close();
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                }
+            }
+            return scores;
+        }
     }
 }

@@ -10,16 +10,23 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace MineSweeperClassLibrary
 {
+    [DataContract]
     public class PlayerStats : IComparable<PlayerStats>
     {
+        [DataMember]
         public string PlayerInitials { get; set; }
+        [DataMember]
         public double DifficultyLevel { get; set; }
+        [DataMember]
         public int BoardSize { get; set; }
+        [DataMember]
         public TimeSpan Time { get; set; }
+        [DataMember]
         public string TimeSpanString { get; set; }
 
         public PlayerStats() { }
