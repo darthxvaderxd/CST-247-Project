@@ -59,12 +59,6 @@
             }
         </table>
     }
-    <div>
-        <button type="submit" onclick="testFunction()">Save</button>
-    </div>
-    <div>
-        <button type="submit" onclick="loadFunction()">Load</button>
-    </div>
 </div>
 
 <!-- Modal -->
@@ -102,7 +96,7 @@
     var turnUpdate = @Html.Raw(Model.Turns);
 
     // Execute to save game
-    function testFunction() {
+    function saveGameFunction() {
         var elapsedTime = sw.now;
         $.ajax({
                 cache: false,
@@ -121,7 +115,7 @@
     }
 
     // Execute to load game
-    function loadFunction() {
+    function loadGameFunction() {
         sw.stop();
         $.ajax({
                 cache: false,

@@ -19,20 +19,30 @@
     @Html.Partial("~/Views/Shared/_GameBoard.cshtml")
 </div>
 <div class="game-menu">
-    @using (Html.BeginForm("ResetGame", "Game"))
-    {
-        @Html.AntiForgeryToken()
-        <button type="submit">
-            Reset Board
-        </button>
-    }
-    @using (Html.BeginForm("Index", "Home"))
-    {
-        @Html.AntiForgeryToken()
-        <button type="submit">
-            Main Menu
-        </button>
-    }
+    <div>
+        @using (Html.BeginForm("ResetGame", "Game"))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit">
+                Reset Board
+            </button>
+        }
+    </div>
+    <div>
+        <button type="submit" onclick="saveGameFunction()">Save</button>
+    </div>
+    <div>
+        <button type="submit" onclick="loadGameFunction()">Load</button>
+    </div>
+    <div>
+        @using (Html.BeginForm("Index", "Home"))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit">
+                Main Menu
+            </button>
+        }
+    </div>
 </div>
 
 

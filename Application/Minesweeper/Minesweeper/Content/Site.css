@@ -158,3 +158,8 @@ img {
     right: 0;
     color: #ff6a00;
 }
+
+.game-menu button[type=submit] {
+    margin-top: 0.8rem;
+    min-width: 10rem;
+}
