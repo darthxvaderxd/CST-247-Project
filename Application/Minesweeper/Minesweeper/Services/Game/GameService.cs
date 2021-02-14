@@ -164,7 +164,7 @@ namespace Minesweeper.Services.Game
         }
 
         // Load a saved game
-        public bool GameLoad()
+        public bool LoadGame()
         {
             GamesDAO gamesDAO = new GamesDAO(); // GamesDAO for accessing database
             GameData gameData = new GameData(); // gameData object for holding results

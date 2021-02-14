@@ -84,7 +84,7 @@ namespace Minesweeper.Controllers
         // Load a game.
         public ActionResult OnLoad()
         {
-            gameService.GameLoad();
+            gameService.LoadGame();
 
             // Returns partial view for Ajax
             return PartialView("_GameBoard", gameService);
