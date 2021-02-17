@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Web;
 
-namespace MinesweeperRestService
+namespace Minesweeper
 {
     public class ServiceAuth : UserNamePasswordValidator
     {

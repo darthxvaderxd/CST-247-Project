@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="MinesweeperRestService.ScoreService" CodeBehind="ScoreService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Minesweeper.ScoreService" CodeBehind="ScoreService.svc.cs" %>

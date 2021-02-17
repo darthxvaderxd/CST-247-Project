@@ -14,7 +14,6 @@ namespace Minesweeper.Services.Data
         {
             // Get userID for logged in user and get game time as ticks
             int userID = int.Parse((String)HttpContext.Current.Session["UserId"]);
-            long timeSpanTicks = playerStats.Time.Ticks;
 
             // Query string to insert new high score into database using prepared statement
             string queryString = "INSERT INTO highScores VALUES(@UserID, @Timespan, @Difficulty, @BoardSize, @Username)";
@@ -26,7 +25,7 @@ namespace Minesweeper.Services.Data
 
                 // Add high score data to INSERT statement
                 command.Parameters.AddWithValue("@UserID", userID);
-                command.Parameters.AddWithValue("@Timespan", timeSpanTicks);
+                command.Parameters.AddWithValue("@Timespan", playerStats.TimeAsTicks);
                 command.Parameters.AddWithValue("@Difficulty", playerStats.DifficultyLevel);
                 command.Parameters.AddWithValue("@BoardSize", playerStats.BoardSize);
                 command.Parameters.AddWithValue("@Username", playerStats.PlayerInitials);
@@ -85,7 +84,7 @@ namespace Minesweeper.Services.Data
                             PlayerStats playerStats = new PlayerStats
                             {
                                 TimeSpanString = ts.ToString(),
-                                Time = ts,
+                                TimeAsTicks = timespan,
                                 PlayerInitials = reader["username"].ToString(),
                                 DifficultyLevel = (int)reader["difficulty"],
                                 BoardSize = (int)reader["boardsize"]
@@ -142,7 +141,7 @@ namespace Minesweeper.Services.Data
                             PlayerStats playerStats = new PlayerStats
                             {
                                 TimeSpanString = ts.ToString(),
-                                Time = ts,
+                                TimeAsTicks = timespan,
                                 PlayerInitials = reader["username"].ToString(),
                                 DifficultyLevel = (int)reader["difficulty"],
                                 BoardSize = (int)reader["boardsize"]
@@ -199,7 +198,7 @@ namespace Minesweeper.Services.Data
                             PlayerStats playerStats = new PlayerStats
                             {
                                 TimeSpanString = ts.ToString(),
-                                Time = ts,
+                                TimeAsTicks = timespan,
                                 PlayerInitials = reader["username"].ToString(),
                                 DifficultyLevel = (int)reader["difficulty"],
                                 BoardSize = (int)reader["boardsize"]

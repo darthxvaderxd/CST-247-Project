@@ -66,6 +66,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\RestDTO.cs" />
     <Compile Include="ServiceAuth.cs" />
     <Compile Include="ScoreService.svc.cs">
       <DependentUpon>ScoreService.svc</DependentUpon>

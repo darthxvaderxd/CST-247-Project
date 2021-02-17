@@ -4,6 +4,8 @@ using MineSweeperClassLibrary;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Web;
 
 namespace Minesweeper.Services.Game
@@ -41,7 +43,7 @@ namespace Minesweeper.Services.Game
             gameBoard = new Board(size, difficulty); // Setup game board
             gameBoard.SetupLiveNeighbors(); // Place bombs in grid
             gameBoard.CalculateLiveNeighbors(); // Calculate live neighbor count for cells
-            GetTopTenScores(); // Populate highScoreList with scores
+            GetTopTenScoresREST(); // Populate highScoreList with scores
         }
 
         // Method for handling one turn. Takes cell coordinates as input
@@ -120,16 +122,17 @@ namespace Minesweeper.Services.Game
             string user = HttpContext.Current.Session["UserInfo"].ToString();
             // Parse time into TimeSpan
             TimeSpan ts = TimeSpan.Parse(time);
+            long timeAsTicks = ts.Ticks;
             // Create PlayerStats instance for new results
-            PlayerStats newPlayerStats = new PlayerStats(user, ts, Difficulty, Size);
+            PlayerStats newPlayerStats = new PlayerStats(user, timeAsTicks, Difficulty, Size);
             // Create instance of HighScoreDAO for accessing database
             HighScoreDAO highScore = new HighScoreDAO();
             // Add new result to database
             highScore.AddScore(newPlayerStats);
             // Update current Top Ten Scores
-            GetTopTenScores();
+            GetTopTenScoresREST();
         }
-
+        
         // Method to get top 10 high scores for current board size and difficulty
         private void GetTopTenScores()
         {
@@ -167,10 +170,10 @@ namespace Minesweeper.Services.Game
         public bool LoadGame()
         {
             GamesDAO gamesDAO = new GamesDAO(); // GamesDAO for accessing database
-            GameData gameData = new GameData(); // gameData object for holding results
 
             // Call LoadGame method with board size and difficulty to load applicable game
-            gameData = gamesDAO.LoadGame(this.Size, this.Difficulty);
+            // Assign to new GameData object
+            GameData gameData = gamesDAO.LoadGame(this.Size, this.Difficulty);
 
             // Try to convert saved game data from JSON back to Board object and load to current game board.
             try
@@ -187,6 +190,36 @@ namespace Minesweeper.Services.Game
             this.Timer = gameData.Timer;
 
             return true;
+        }
+
+        // Method to get top 10 high scores for current board size and difficulty through REST service
+        private void GetTopTenScoresREST()
+        {
+            //url of REST service providing High Score data
+            string url = "http://localhost:55058/ScoreService.svc/GetTopTenScores/" + Size + "/" + Difficulty; 
+
+            //WebRequest to obtain JSON high scores from REST service
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            try
+            {
+                // Get response from REST service
+                WebResponse response = request.GetResponse();
+                // Data Transfer Object to hold REST response
+                RESTHighScoresDTO restDTO = new RESTHighScoresDTO();
+                // Stream the response and deserialize to DTO object
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+                    restDTO = JsonConvert.DeserializeObject<RESTHighScoresDTO>(reader.ReadToEnd());
+                    // Set results to high score list
+                    highScoreList = restDTO.Scores;
+                }
+            }
+            catch (WebException e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
