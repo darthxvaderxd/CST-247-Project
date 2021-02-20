@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Minesweeper.Controllers
 {
+    [CustomLogging] // Custom logging attribute for entry and exit to controller
     public class HomeController : Controller
     {
         // GET: Home

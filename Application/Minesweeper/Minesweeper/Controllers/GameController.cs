@@ -11,6 +11,7 @@ namespace Minesweeper.Controllers
 
     // Controller for actions related to the running of Minesweeper game
     [CustomAuthorization] // Authorization filter for logged in users
+    [CustomLogging] // Custom logging attribute for entry and exit to controller
     public class GameController : Controller
     {
         // Static instance of GameService for controlling all aspects of game play

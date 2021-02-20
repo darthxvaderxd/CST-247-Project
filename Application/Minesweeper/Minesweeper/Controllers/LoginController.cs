@@ -1,16 +1,23 @@
 ﻿using Minesweeper.Models;
 using Minesweeper.Services.Business;
+using Minesweeper.Services.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Unity;
 
 namespace Minesweeper.Controllers
 {
     // Controller for actions related to logging a user into application
+    [CustomLogging] // Custom logging attribute for entry and exit to controller    
     public class LoginController : Controller
     {
+        /*
+        [Dependency]
+        public ILogger Logger { get; set; }*/
+
         // Action method for brining up a login screen
         // Get: Login
         [HttpGet]

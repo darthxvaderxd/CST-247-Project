@@ -9,6 +9,7 @@ using System.Web.Mvc;
 namespace Minesweeper.Controllers
 {
     // Controller for actions related to registering a user
+    [CustomLogging] // Custom logging attribute for entry and exit to controller
     public class RegistrationController : Controller
     {
         // Action method for bringing up a registration form
