@@ -14,10 +14,6 @@ namespace Minesweeper.Controllers
     [CustomLogging] // Custom logging attribute for entry and exit to controller    
     public class LoginController : Controller
     {
-        /*
-        [Dependency]
-        public ILogger Logger { get; set; }*/
-
         // Action method for brining up a login screen
         // Get: Login
         [HttpGet]
