@@ -43,7 +43,6 @@ namespace Minesweeper.Services.Game
             gameBoard = new Board(size, difficulty); // Setup game board
             gameBoard.SetupLiveNeighbors(); // Place bombs in grid
             gameBoard.CalculateLiveNeighbors(); // Calculate live neighbor count for cells
-            GetTopTenScoresREST(); // Populate highScoreList with scores
         }
 
         // Method for handling one turn. Takes cell coordinates as input
